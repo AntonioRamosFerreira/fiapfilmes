@@ -4,14 +4,16 @@ import { Star } from "lucide";
 import { Warnes } from "next/font/google";
 
 export default function Home() {
-  
+  //mock
   const StarWars ={
+    id: 1,
     titulo: "Star Wars VII - O Despertar da Força",
     nota: 9.5,
     poster: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/lqMDbo4rXnakFgc4C6LzPv6pG7F.jpg"
   }
   
   const barbie ={
+    id: 2,
     titulo: "Barbie",
     nota: 9.0,
     poster: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/yRRuLt7sMBEQkHsd1S3KaaofZn7.jpg"
