@@ -4,8 +4,8 @@ import { HeartIcon } from '@heroicons/react/24/solid'
 import { HeartIcon as HeartIconOutline } from '@heroicons/react/24/outline'
 
 export default function CardFilme({filme}){
-
     const [favorito, setFavorito ] = useState(false) //hooks
+    const image_url = "https://image.tmdb.org/t/p/w500/" + filme.poster_path
 
     useEffect(() => {
       let favoritos = JSON.parse(localStorage.getItem("favoritos")) || []
@@ -16,6 +16,16 @@ export default function CardFilme({filme}){
 
     function favoritar(){
       setFavorito(true)
+
+      const options = { 
+         method: 'POST', 
+         headers: 
+         {    accept: 'application/json',    'content-type': 'application/json',    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZTkyMjY2NzQ4MWFiMjA3ZDY0MjQ1MGIwZWZiNDYxZSIsInN1YiI6IjVlYTA5ZTZiYmU0YjM2MDAxYzU5NWExNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Vhu0pPCiIwmtrpyOHdBlQid8HJJllaHthn1MERS_ANg'  },  body: JSON.stringify({media_type: 'movie', media_id: filme.id, watchlist: true})};fetch('https://api.themoviedb.org/3/account/9269654/watchlist', options)  
+      .then(response => response.json())  
+      .then(response => console.log(response))  
+      .catch(err => console.error(err));
+
+
       let favoritos = JSON.parse(localStorage.getItem("favoritos")) || []
       favoritos.push(filme)
       localStorage.setItem("favoritos", JSON.stringify (favoritos))
@@ -23,6 +33,16 @@ export default function CardFilme({filme}){
 
     function desfavoritar (){
       setFavorito(false)
+
+      const options = { 
+        method: 'POST', 
+        headers: 
+        {    accept: 'application/json',    'content-type': 'application/json',    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZTkyMjY2NzQ4MWFiMjA3ZDY0MjQ1MGIwZWZiNDYxZSIsInN1YiI6IjVlYTA5ZTZiYmU0YjM2MDAxYzU5NWExNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Vhu0pPCiIwmtrpyOHdBlQid8HJJllaHthn1MERS_ANg'  },  body: JSON.stringify({media_type: 'movie', media_id: filme.id, watchlist: false})};fetch('https://api.themoviedb.org/3/account/9269654/watchlist', options)  
+     .then(response => response.json())  
+     .then(response => console.log(response))  
+     .catch(err => console.error(err));
+
+
       let favoritos = JSON.parse(localStorage.getItem("favoritos")) || []
       const favoritosAtualizado = favoritos.filter(f => f.id !== filme.id )
       localStorage.setItem("favoritos", JSON.stringify (favoritosAtualizado))
@@ -44,12 +64,12 @@ export default function CardFilme({filme}){
       }
         <img
           className="rounded  h-56"
-          src={filme.poster}
+          src={image_url}
           alt="poster do filme"
         />
         
         <span className="font-bold text-lg w-full line-clamp-1 text-center">
-          {filme.titulo}
+          {filme.title}
         </span>
         <div className="flex items-center gap-2">
           <svg
@@ -65,7 +85,7 @@ export default function CardFilme({filme}){
             />
           </svg>
 
-          <span className="text-slate-400">{filme.nota}</span>
+          <span className="text-slate-400">{filme.vote_average.toFixed(1)}</span>
 
         </div>
 
