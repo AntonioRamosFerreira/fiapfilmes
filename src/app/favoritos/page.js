@@ -1,7 +1,7 @@
 import CardFilme from "@/components/CardFilme";
+import NavBar from "@/components/NavBar";
 import Titulos from "@/components/Titulos";
-import { Star } from "lucide";
-import { Warnes } from "next/font/google";
+
 
 async function carregarDados(){
     const options = {
@@ -25,14 +25,7 @@ export default async function Favoritos() {
   return(
     //JSX
     <>
-      <nav className="bg-slate-500 p-2 flex gap-3 items-end">
-        <h1 className="text-3xl text-zinc-100 font-bold uppercase">FIAP Filmes</h1>
-        <ul>
-          <li>
-            <a href="/favoritos">favoritos</a>
-          </li>
-        </ul>
-      </nav>
+    <NavBar/>
 
       <Titulos>Favoritos</Titulos>
 
